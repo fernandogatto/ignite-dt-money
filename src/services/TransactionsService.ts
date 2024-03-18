@@ -1,8 +1,12 @@
-import Api from './Api';
+import { api } from "../lib/axios";
 
 class TransactionsService {
-  getTransactions() {
-    return Api.get('/transactions');
+  getTransactions(search?: string) {
+    return api.get('transactions', {
+      params: {
+        description: search,
+      }
+    });
   }
 }
 

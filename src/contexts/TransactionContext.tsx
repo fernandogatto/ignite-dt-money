@@ -15,6 +15,7 @@ interface ITransactionContextType {
   isLoading: boolean;
   hasError: boolean;
   transactions: ITransaction[];
+  getTransactions: (search?: string) => Promise<void>;
 }
 
 interface ITransactionProviderProps {
@@ -32,11 +33,11 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
     getTransactions();
   }, [])
 
-  async function getTransactions() {
+  async function getTransactions(search?: string) {
     try {
       setIsLoading(true);
   
-      const { data } = await TransactionsService.getTransactions();
+      const { data } = await TransactionsService.getTransactions(search);
   
       setIsLoading(false);
   
@@ -57,6 +58,7 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
       isLoading,
       hasError,
       transactions,
+      getTransactions,
     }}>
       {children}
     </TransactionsContext.Provider>
