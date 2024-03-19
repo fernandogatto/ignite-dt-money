@@ -5,10 +5,17 @@ import TransactionsService from "../services/TransactionsService";
 interface ITransaction {
   id: number;
   description: string;
-  type: "income" | "outcome";
+  type: 'income' | 'outcome';
   category: string;
   price: number;
   createdAt: string;
+}
+
+interface ICreateTransactionData {
+  description: string;
+  price: number;
+  category: string;
+  type: 'income' | 'outcome';
 }
 
 interface ITransactionContextType {
@@ -16,6 +23,7 @@ interface ITransactionContextType {
   hasError: boolean;
   transactions: ITransaction[];
   getTransactions: (search?: string) => Promise<void>;
+  createTransaction: (data: ICreateTransactionData) => Promise<void>;
 }
 
 interface ITransactionProviderProps {
@@ -53,12 +61,27 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
     }
   }
 
+  async function createTransaction(data: ICreateTransactionData) {
+    const { description, price, category, type } = data;
+
+    const response = await TransactionsService.createNewTransacion({
+      description,
+      price,
+      category,
+      type,
+      createdAt: new Date(),
+    });
+
+    setTransactions(state => [response.data, ...state]);
+  }
+
   return (
     <TransactionsContext.Provider value={{
       isLoading,
       hasError,
       transactions,
       getTransactions,
+      createTransaction,
     }}>
       {children}
     </TransactionsContext.Provider>
