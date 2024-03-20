@@ -8,6 +8,15 @@ interface ICreateTransactionData {
   createdAt: Date;
 }
 
+interface IUpdateTransactionData {
+  id: string;
+  description: string;
+  price: number;
+  category: string;
+  type: string;
+  createdAt: Date;
+}
+
 class TransactionsService {
   getTransactions(search?: string) {
     return api.get('transactions', {
@@ -21,6 +30,10 @@ class TransactionsService {
 
   createNewTransacion(data: ICreateTransactionData) {
     return api.post('transactions', data);
+  }
+
+  updateTransaction(data: IUpdateTransactionData) {
+    return api.put(`transactions/${data.id}`, data);
   }
 
   deleteTransaction(id: string) {

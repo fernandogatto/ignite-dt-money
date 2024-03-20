@@ -8,7 +8,7 @@ interface ITransaction {
   type: 'income' | 'outcome';
   category: string;
   price: number;
-  createdAt: string;
+  createdAt: Date;
 }
 
 interface ICreateTransactionData {
@@ -18,12 +18,22 @@ interface ICreateTransactionData {
   type: 'income' | 'outcome';
 }
 
+interface IUpdateTransactionData {
+  id: string;
+  description: string;
+  price: number;
+  category: string;
+  type: 'income' | 'outcome';
+  createdAt: Date;
+}
+
 interface ITransactionContextType {
   isLoading: boolean;
   hasError: boolean;
   transactions: ITransaction[];
   getTransactions: (search?: string) => Promise<void>;
   createTransaction: (data: ICreateTransactionData) => Promise<void>;
+  updateTransaction: (data: IUpdateTransactionData) => Promise<void>;
   deleteTransaction: (id: string) => Promise<void>;
 }
 
@@ -76,6 +86,27 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
     setTransactions(state => [response.data, ...state]);
   }
 
+  async function updateTransaction(data: IUpdateTransactionData) {
+    const { id, description, price, category, type, createdAt } = data;
+
+    const response = await TransactionsService.updateTransaction({
+      id,
+      description,
+      price,
+      category,
+      type,
+      createdAt,
+    });
+
+    if (response) {
+      setTransactions(prevTransactions =>
+        prevTransactions.map(transaction =>
+          transaction.id === id ? { ...transaction, ...data } : transaction
+        )
+      );
+    }
+  }
+
   async function deleteTransaction(id: string) {
     await TransactionsService.deleteTransaction(id);
 
@@ -91,6 +122,7 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
       transactions,
       getTransactions,
       createTransaction,
+      updateTransaction,
       deleteTransaction,
     }}>
       {children}

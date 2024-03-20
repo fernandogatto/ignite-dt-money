@@ -36,7 +36,7 @@ export const PriceHighlight = styled.span<PriceHighlightProps>`
 `;
 
 interface IconButtonProps {
-  variant: "edit" | "remove";
+  variant: "update" | "remove";
 }
 
 export const IconButton = styled.button<IconButtonProps>`
@@ -44,10 +44,10 @@ export const IconButton = styled.button<IconButtonProps>`
   background-color: transparent;
   border-radius: 6px;
   border: 2px solid 
-    ${props => props.variant === 'edit'
+    ${props => props.variant === 'update'
       ? props.theme['green-500']
       : props.theme['red-500']};
-  color: ${props => props.variant === 'edit'
+  color: ${props => props.variant === 'update'
       ? props.theme['green-500']
       : props.theme['red-500']};
   cursor: pointer;
@@ -55,10 +55,10 @@ export const IconButton = styled.button<IconButtonProps>`
 
   &:hover {
     border: 2px solid 
-    ${props => props.variant === 'edit'
+    ${props => props.variant === 'update'
       ? props.theme['green-700']
       : props.theme['red-700']};
-  color: ${props => props.variant === 'edit'
+  color: ${props => props.variant === 'update'
       ? props.theme['green-700']
       : props.theme['red-700']};
   }
