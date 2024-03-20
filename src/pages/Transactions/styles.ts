@@ -34,3 +34,32 @@ interface PriceHighlightProps {
 export const PriceHighlight = styled.span<PriceHighlightProps>`
   color: ${props => props.variant === "income" ? props.theme["green-300"] : props.theme["red-300"]};
 `;
+
+interface IconButtonProps {
+  variant: "edit" | "remove";
+}
+
+export const IconButton = styled.button<IconButtonProps>`
+  padding: 0.375rem;
+  background-color: transparent;
+  border-radius: 6px;
+  border: 2px solid 
+    ${props => props.variant === 'edit'
+      ? props.theme['green-500']
+      : props.theme['red-500']};
+  color: ${props => props.variant === 'edit'
+      ? props.theme['green-500']
+      : props.theme['red-500']};
+  cursor: pointer;
+  transition: .3s ease all;
+
+  &:hover {
+    border: 2px solid 
+    ${props => props.variant === 'edit'
+      ? props.theme['green-700']
+      : props.theme['red-700']};
+  color: ${props => props.variant === 'edit'
+      ? props.theme['green-700']
+      : props.theme['red-700']};
+  }
+`

@@ -22,6 +22,10 @@ class TransactionsService {
   createNewTransacion(data: ICreateTransactionData) {
     return api.post('transactions', data);
   }
+
+  deleteTransaction(id: string) {
+    return api.delete(`transactions/${id}`);
+  }
 }
 
 export default new TransactionsService();

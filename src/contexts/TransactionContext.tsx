@@ -3,7 +3,7 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import TransactionsService from "../services/TransactionsService";
 
 interface ITransaction {
-  id: number;
+  id: string;
   description: string;
   type: 'income' | 'outcome';
   category: string;
@@ -24,6 +24,7 @@ interface ITransactionContextType {
   transactions: ITransaction[];
   getTransactions: (search?: string) => Promise<void>;
   createTransaction: (data: ICreateTransactionData) => Promise<void>;
+  deleteTransaction: (id: string) => Promise<void>;
 }
 
 interface ITransactionProviderProps {
@@ -75,6 +76,14 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
     setTransactions(state => [response.data, ...state]);
   }
 
+  async function deleteTransaction(id: string) {
+    await TransactionsService.deleteTransaction(id);
+
+    const filteredTransactions = transactions.filter(item => item.id !== id);
+
+    setTransactions(filteredTransactions);
+  }
+
   return (
     <TransactionsContext.Provider value={{
       isLoading,
@@ -82,6 +91,7 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
       transactions,
       getTransactions,
       createTransaction,
+      deleteTransaction,
     }}>
       {children}
     </TransactionsContext.Provider>
