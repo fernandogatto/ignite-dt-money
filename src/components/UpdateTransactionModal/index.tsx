@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { TransactionsContext } from '../../contexts/TransactionContext';
 
 import { CloseButton, Content, Overlay, TransactionType, TransactionTypeButton } from './styles';
@@ -32,38 +32,47 @@ interface IUpdateTransactionModalProps {
 }
 
 export function UpdateTransactionModal(data: IUpdateTransactionModalProps) {
-  const transaction = data.transaction;
+  const { updateTransaction, closeUpdateTransactionModal, currentTransaction } = useContext(TransactionsContext);
 
-  const { updateTransaction } = useContext(TransactionsContext);
-
-  const {
+  let {
     control,
     register,
     handleSubmit,
-    formState: { isSubmitting, reset } } = useForm({
+    setValue,
+    formState: { isSubmitting } } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: {
-      description: transaction.description,
-      price: transaction.price,
-      category: transaction.category,
-      type: transaction.type,
-    }
   });
 
+  useEffect(() => {
+    updateInputs();
+  }, [data])
+
+  const updateInputs = () => {
+    const newValues = {
+      description: currentTransaction.description,
+      price: currentTransaction.price,
+      category: currentTransaction.category,
+      type: currentTransaction.type,
+    };
+    
+    Object.keys(newValues).forEach((item) => {
+      setValue(item, newValues[item]);
+    });
+  };
+
   async function handleUpdateTransaction(data: UpdateTransactionFormInputs) {
-    console.log(data)
     const { description, price, category, type } = data;
 
     await updateTransaction({
-      id: transaction.id,
+      id: currentTransaction.id,
       description,
       price,
       category,
       type,
-      createdAt: transaction.createdAt,
+      createdAt: currentTransaction.createdAt,
     });
 
-    // reset();
+    closeUpdateTransactionModal();
   }
 
   return (

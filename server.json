@@ -11,10 +11,18 @@
     {
       "id": "2",
       "description": "Hambúrguer",
-      "price": 100,
+      "price": 150,
       "category": "Alimentação",
       "type": "outcome",
       "createdAt": "2022-07-29T19:30:44.505Z"
+    },
+    {
+      "id": "c24c",
+      "description": "Iogurte",
+      "price": 20,
+      "category": "Alimentação",
+      "type": "outcome",
+      "createdAt": "2024-03-20T23:40:51.170Z"
     }
   ]
 }

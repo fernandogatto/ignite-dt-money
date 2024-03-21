@@ -19,7 +19,7 @@ const schema = z.object({
 type NewTransactionFormInputs = z.infer<typeof schema>;
 
 export function NewTransactionModal() {
-  const { createTransaction } = useContext(TransactionsContext);
+  const { createTransaction, closeNewTransactionModal } = useContext(TransactionsContext);
 
   const {
     control,
@@ -41,6 +41,8 @@ export function NewTransactionModal() {
       category,
       type,
     });
+
+    closeNewTransactionModal();
 
     reset();
   }

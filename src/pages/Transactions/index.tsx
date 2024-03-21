@@ -14,7 +14,7 @@ import { IconButton, PriceHighlight, TransactionsContainer, TransactionsTable } 
 import { dateFormatter, priceFormatter } from "../../utils/formatter";
 
 export function Transactions() {
-  const { isLoading, hasError, transactions } = useContext(TransactionsContext);
+  const { isLoading, hasError, transactions, updateTransactionModalIsOpen, setUpdateTransactionModalIsOpen, deleteTransactionModalIsOpen, setDeleteTransactionModalIsOpen, setMyCurrentTransaction } = useContext(TransactionsContext);
 
   return (
     <div>
@@ -38,9 +38,9 @@ export function Transactions() {
                 <td>{item.category}</td>
                 <td>{dateFormatter.format(new Date(item.createdAt))}</td>
                 <td>
-                  <Dialog.Root>
+                  <Dialog.Root open={updateTransactionModalIsOpen} onOpenChange={setUpdateTransactionModalIsOpen}>
                     <Dialog.Trigger asChild>
-                      <IconButton variant="update">
+                      <IconButton variant="update" onClick={() => setMyCurrentTransaction(item)}>
                         <Pencil size={20} />
                       </IconButton>
                     </Dialog.Trigger>
@@ -49,7 +49,7 @@ export function Transactions() {
                   </Dialog.Root>
                 </td>
                 <td>
-                  <Dialog.Root>
+                  <Dialog.Root open={deleteTransactionModalIsOpen} onOpenChange={setDeleteTransactionModalIsOpen}>
                     <Dialog.Trigger asChild>
                       <IconButton variant="remove">
                         <Trash size={20} />

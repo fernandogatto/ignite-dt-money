@@ -31,10 +31,21 @@ interface ITransactionContextType {
   isLoading: boolean;
   hasError: boolean;
   transactions: ITransaction[];
+  currentTransaction: ITransaction;
+  newTransactionModalIsOpen: boolean;
+  setNewTransactionModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  updateTransactionModalIsOpen: boolean;
+  setUpdateTransactionModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  deleteTransactionModalIsOpen: boolean;
+  setDeleteTransactionModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   getTransactions: (search?: string) => Promise<void>;
   createTransaction: (data: ICreateTransactionData) => Promise<void>;
   updateTransaction: (data: IUpdateTransactionData) => Promise<void>;
   deleteTransaction: (id: string) => Promise<void>;
+  setMyCurrentTransaction: (data: ITransaction) => void;
+  closeNewTransactionModal: () => void;
+  closeUpdateTransactionModal: () => void;
+  closeDeleteTransactionModal: () => void;
 }
 
 interface ITransactionProviderProps {
@@ -47,6 +58,12 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [transactions, setTransactions] = useState<ITransaction[]>([]);
+
+  const [newTransactionModalIsOpen, setNewTransactionModalIsOpen] = useState(false);
+  const [updateTransactionModalIsOpen, setUpdateTransactionModalIsOpen] = useState(false);
+  const [deleteTransactionModalIsOpen, setDeleteTransactionModalIsOpen] = useState(false);
+
+  const [currentTransaction, setCurrentTransaction] = useState({} as ITransaction);
 
   useEffect(() => {
     getTransactions();
@@ -115,15 +132,42 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
     setTransactions(filteredTransactions);
   }
 
+  function setMyCurrentTransaction(data: ITransaction) {
+    setCurrentTransaction(data);
+  }
+
+  function closeNewTransactionModal() {
+    setNewTransactionModalIsOpen(false);
+  }
+
+  function closeUpdateTransactionModal() {
+    setUpdateTransactionModalIsOpen(false);
+  }
+
+  function closeDeleteTransactionModal() {
+    setDeleteTransactionModalIsOpen(false);
+  }
+
   return (
     <TransactionsContext.Provider value={{
       isLoading,
       hasError,
       transactions,
+      currentTransaction,
+      newTransactionModalIsOpen,
+      setNewTransactionModalIsOpen,
+      updateTransactionModalIsOpen,
+      setUpdateTransactionModalIsOpen,
+      deleteTransactionModalIsOpen,
+      setDeleteTransactionModalIsOpen,
       getTransactions,
       createTransaction,
       updateTransaction,
       deleteTransaction,
+      setMyCurrentTransaction,
+      closeNewTransactionModal,
+      closeUpdateTransactionModal,
+      closeDeleteTransactionModal,
     }}>
       {children}
     </TransactionsContext.Provider>

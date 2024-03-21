@@ -10,10 +10,12 @@ interface IDeleteTransactionModalProps {
 }
 
 export function DeleteTransactionModal(data: IDeleteTransactionModalProps) {
-  const { deleteTransaction } = useContext(TransactionsContext);
+  const { deleteTransaction, closeDeleteTransactionModal } = useContext(TransactionsContext);
 
   function handleDeleteTransaction() {
     deleteTransaction(data.id);
+
+    closeDeleteTransactionModal();
   }
 
   return (
