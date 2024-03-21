@@ -17,7 +17,7 @@
   <img src="https://img.shields.io/github/stars/fernandogatto/adote-io-web?color=00875F" alt="Stars">
 </p>
 
-> Web application for coffee delivery.
+> Web application for money control.
 
 ## 🔗 Table of contents
 - [Technologies](#technologies)
