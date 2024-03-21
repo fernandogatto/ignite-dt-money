@@ -1,30 +1,87 @@
-# React + TypeScript + Vite
+<h1 align="center">
+  <img
+    alt="DT Money"
+    title="DT Money"
+    src=".github/logo.svg"
+    width="150"
+  />
+</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <a href="https://github.com/fernandogatto/" target="_blank">
+    <img src="https://img.shields.io/badge/author-fernandogatto-00875F" alt="Author">
+  </a>
 
-Currently, two official plugins are available:
+  <img src="https://img.shields.io/github/forks/fernandogatto/adote-io-web?color=00875F" alt="Forks">
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  <img src="https://img.shields.io/github/stars/fernandogatto/adote-io-web?color=00875F" alt="Stars">
+</p>
 
-## Expanding the ESLint configuration
+> Web application for coffee delivery.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🔗 Table of contents
+- [Technologies](#technologies)
+- [Installation](#installation)
+- [Getting start](#start)
+- [Project](#project)
+- [Contribute](#contribute)
 
-- Configure the top-level `parserOptions` property like this:
+## 📌 Technologies <a name="technologies"/>
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- [ESLint](https://eslint.org/)
+- [ReactJS](https://pt-br.reactjs.org/)
+- [React Hook Form](https://www.react-hook-form.com/)
+- [Radix UI](https://www.radix-ui.com/)
+- [Styled Components](https://styled-components.com/)
+- [Vite](https://vitejs.dev/)
+
+## 📂 Installation <a name="installation"/>
+
+First of all, it is important that you have installed [npm](https://www.npmjs.com/).
+
+So, run this command in terminal to clone the project via HTTPS:
+
+```bash
+git clone https://github.com/fernandogatto/ignite-dt-money
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+SSH URLs provide access to a Git repository via SSH, a secure protocol. If you have a SSH key registered in your Github account, clone the project using this command:
+
+```bash
+git@github.com:fernandogatto/ignite-dt-money.git
+```
+
+**Install dependencies**
+
+```bash
+npm install
+```
+
+## 🚀 Getting start <a name="start"/>
+
+Run the following command in order in terminal:
+
+```bash
+# Start the server
+npm run dev
+```
+
+## 💻 Project <a name="project"/>
+
+Dashboard:
+
+<img
+  alt="Home"
+  title="Home"
+  src=".github/Home.png"
+  width="800"
+/>
+
+## 👍 Contribute <a name="contribute"/>
+
+- Fork this repository.
+- Create a branch with your resource: ```git checkout -b feature/my-feature```
+- Submit changes: ```git commit -m "feat: My new feature"```
+- Push your branch: ```git push origin feature/my-feature```
+
+Build with 💙 by [Fernando Gatto](https://github.com/fernandogatto/).
