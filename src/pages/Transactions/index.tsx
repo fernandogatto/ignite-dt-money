@@ -45,18 +45,18 @@ export function Transactions() {
                       </IconButton>
                     </Dialog.Trigger>
 
-                    <UpdateTransactionModal transaction={item} />
+                    <UpdateTransactionModal />
                   </Dialog.Root>
                 </td>
                 <td>
                   <Dialog.Root open={deleteTransactionModalIsOpen} onOpenChange={setDeleteTransactionModalIsOpen}>
                     <Dialog.Trigger asChild>
-                      <IconButton variant="remove">
+                      <IconButton variant="remove" onClick={() => setMyCurrentTransaction(item)}>
                         <Trash size={20} />
                       </IconButton>
                     </Dialog.Trigger>
 
-                    <DeleteTransactionModal id={item.id} />
+                    <DeleteTransactionModal />
                   </Dialog.Root>
                 </td>
               </tr>

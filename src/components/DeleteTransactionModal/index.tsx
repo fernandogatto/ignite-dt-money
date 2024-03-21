@@ -5,15 +5,11 @@ import { TransactionsContext } from '../../contexts/TransactionContext';
 
 import { CloseButton, Content, Overlay } from './styles';
 
-interface IDeleteTransactionModalProps {
-  id: string;
-}
-
-export function DeleteTransactionModal(data: IDeleteTransactionModalProps) {
-  const { deleteTransaction, closeDeleteTransactionModal } = useContext(TransactionsContext);
+export function DeleteTransactionModal() {
+  const { deleteTransaction, closeDeleteTransactionModal, currentTransaction } = useContext(TransactionsContext);
 
   function handleDeleteTransaction() {
-    deleteTransaction(data.id);
+    deleteTransaction(currentTransaction.id);
 
     closeDeleteTransactionModal();
   }

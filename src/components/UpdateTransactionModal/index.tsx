@@ -27,11 +27,7 @@ interface ITransaction {
   createdAt: Date;
 }
 
-interface IUpdateTransactionModalProps {
-  transaction: ITransaction;
-}
-
-export function UpdateTransactionModal(data: IUpdateTransactionModalProps) {
+export function UpdateTransactionModal() {
   const { updateTransaction, closeUpdateTransactionModal, currentTransaction } = useContext(TransactionsContext);
 
   let {
@@ -45,9 +41,9 @@ export function UpdateTransactionModal(data: IUpdateTransactionModalProps) {
 
   useEffect(() => {
     updateInputs();
-  }, [data])
+  }, [currentTransaction])
 
-  const updateInputs = () => {
+  function updateInputs() {
     const newValues = {
       description: currentTransaction.description,
       price: currentTransaction.price,
