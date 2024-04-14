@@ -10,14 +10,18 @@ import { HeaderContainer, HeaderContent, NewTransactionButton } from "./styles";
 import logoImg from "../../assets/logo.svg";
 
 export function Header() {
-  const { newTransactionModalIsOpen, setNewTransactionModalIsOpen } = useContext(TransactionsContext);
+  const { newTransactionModalIsOpen, setNewTransactionModalIsOpen } =
+    useContext(TransactionsContext);
 
   return (
     <HeaderContainer>
       <HeaderContent>
-        <img src={logoImg} alt="" />
+        <img src={logoImg} alt="DT Money" />
 
-        <Dialog.Root open={newTransactionModalIsOpen} onOpenChange={setNewTransactionModalIsOpen}>
+        <Dialog.Root
+          open={newTransactionModalIsOpen}
+          onOpenChange={setNewTransactionModalIsOpen}
+        >
           <Dialog.Trigger asChild>
             <NewTransactionButton>Nova transação</NewTransactionButton>
           </Dialog.Trigger>
