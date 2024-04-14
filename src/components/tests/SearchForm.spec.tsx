@@ -7,5 +7,6 @@ describe("SearchForm", () => {
     render(<SearchForm />);
 
     expect(screen.getByText("Buscar")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Busque por transações/i)).toBeVisible();
   });
 });
