@@ -14,7 +14,7 @@ export function Summary() {
           <ArrowCircleUp size={32} color="#00b37e" />
         </header>
 
-        <strong>{priceFormatter.format(summary.income)}</strong>
+        {summary && <strong>{priceFormatter.format(summary.income)}</strong>}
       </SummaryCard>
 
       <SummaryCard>
@@ -23,7 +23,7 @@ export function Summary() {
           <ArrowCircleDown size={32} color="#f75a68" />
         </header>
 
-        <strong>{priceFormatter.format(summary.outcome)}</strong>
+        {summary && <strong>{priceFormatter.format(summary.outcome)}</strong>}
       </SummaryCard>
 
       <SummaryCard variant="green">
@@ -32,7 +32,7 @@ export function Summary() {
           <CurrencyDollar size={32} color="#fff" />
         </header>
 
-        <strong>{priceFormatter.format(summary.total)}</strong>
+        {summary && <strong>{priceFormatter.format(summary.total)}</strong>}
       </SummaryCard>
     </SummaryContainer>
   );

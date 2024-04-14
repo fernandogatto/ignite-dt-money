@@ -1,11 +1,17 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 import TransactionsService from "../services/TransactionsService";
 
-interface ITransaction {
+export interface ITransaction {
   id: string;
   description: string;
-  type: 'income' | 'outcome';
+  type: "income" | "outcome";
   category: string;
   price: number;
   createdAt: Date;
@@ -15,7 +21,7 @@ interface ICreateTransactionData {
   description: string;
   price: number;
   category: string;
-  type: 'income' | 'outcome';
+  type: "income" | "outcome";
 }
 
 interface IUpdateTransactionData {
@@ -23,7 +29,7 @@ interface IUpdateTransactionData {
   description: string;
   price: number;
   category: string;
-  type: 'income' | 'outcome';
+  type: "income" | "outcome";
   createdAt: Date;
 }
 
@@ -35,9 +41,13 @@ interface ITransactionContextType {
   newTransactionModalIsOpen: boolean;
   setNewTransactionModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   updateTransactionModalIsOpen: boolean;
-  setUpdateTransactionModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setUpdateTransactionModalIsOpen: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
   deleteTransactionModalIsOpen: boolean;
-  setDeleteTransactionModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setDeleteTransactionModalIsOpen: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
   getTransactions: (search?: string) => Promise<void>;
   createTransaction: (data: ICreateTransactionData) => Promise<void>;
   updateTransaction: (data: IUpdateTransactionData) => Promise<void>;
@@ -59,26 +69,31 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
   const [hasError, setHasError] = useState(false);
   const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
-  const [newTransactionModalIsOpen, setNewTransactionModalIsOpen] = useState(false);
-  const [updateTransactionModalIsOpen, setUpdateTransactionModalIsOpen] = useState(false);
-  const [deleteTransactionModalIsOpen, setDeleteTransactionModalIsOpen] = useState(false);
+  const [newTransactionModalIsOpen, setNewTransactionModalIsOpen] =
+    useState(false);
+  const [updateTransactionModalIsOpen, setUpdateTransactionModalIsOpen] =
+    useState(false);
+  const [deleteTransactionModalIsOpen, setDeleteTransactionModalIsOpen] =
+    useState(false);
 
-  const [currentTransaction, setCurrentTransaction] = useState({} as ITransaction);
+  const [currentTransaction, setCurrentTransaction] = useState(
+    {} as ITransaction
+  );
 
   useEffect(() => {
     getTransactions();
-  }, [])
+  }, []);
 
   async function getTransactions(search?: string) {
     try {
       setIsLoading(true);
-  
+
       const { data } = await TransactionsService.getTransactions(search);
-  
+
       setIsLoading(false);
-  
+
       setHasError(false);
-  
+
       setTransactions(data);
     } catch (err) {
       console.error(err);
@@ -100,7 +115,7 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
       createdAt: new Date(),
     });
 
-    setTransactions(state => [response.data, ...state]);
+    setTransactions((state) => [response.data, ...state]);
   }
 
   async function updateTransaction(data: IUpdateTransactionData) {
@@ -116,8 +131,8 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
     });
 
     if (response) {
-      setTransactions(prevTransactions =>
-        prevTransactions.map(transaction =>
+      setTransactions((prevTransactions) =>
+        prevTransactions.map((transaction) =>
           transaction.id === id ? { ...transaction, ...data } : transaction
         )
       );
@@ -127,7 +142,7 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
   async function deleteTransaction(id: string) {
     await TransactionsService.deleteTransaction(id);
 
-    const filteredTransactions = transactions.filter(item => item.id !== id);
+    const filteredTransactions = transactions.filter((item) => item.id !== id);
 
     setTransactions(filteredTransactions);
   }
@@ -149,27 +164,31 @@ export function TransactionsProvider({ children }: ITransactionProviderProps) {
   }
 
   return (
-    <TransactionsContext.Provider value={{
-      isLoading,
-      hasError,
-      transactions,
-      currentTransaction,
-      newTransactionModalIsOpen,
-      setNewTransactionModalIsOpen,
-      updateTransactionModalIsOpen,
-      setUpdateTransactionModalIsOpen,
-      deleteTransactionModalIsOpen,
-      setDeleteTransactionModalIsOpen,
-      getTransactions,
-      createTransaction,
-      updateTransaction,
-      deleteTransaction,
-      setMyCurrentTransaction,
-      closeNewTransactionModal,
-      closeUpdateTransactionModal,
-      closeDeleteTransactionModal,
-    }}>
+    <TransactionsContext.Provider
+      value={{
+        isLoading,
+        hasError,
+        transactions,
+        currentTransaction,
+        newTransactionModalIsOpen,
+        setNewTransactionModalIsOpen,
+        updateTransactionModalIsOpen,
+        setUpdateTransactionModalIsOpen,
+        deleteTransactionModalIsOpen,
+        setDeleteTransactionModalIsOpen,
+        getTransactions,
+        createTransaction,
+        updateTransaction,
+        deleteTransaction,
+        setMyCurrentTransaction,
+        closeNewTransactionModal,
+        closeUpdateTransactionModal,
+        closeDeleteTransactionModal,
+      }}
+    >
       {children}
     </TransactionsContext.Provider>
-  )
+  );
 }
+
+export const useTransaction = () => useContext(TransactionsContext);
