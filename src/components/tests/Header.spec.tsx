@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { Header } from "../Header";
 import "@testing-library/jest-dom";
+import { Header } from "../Header";
 
 // Mock the image file import
 jest.mock("../../assets/logo.svg", () => "mocked-image-path");
@@ -15,18 +15,26 @@ class ResizeObserver {
 // Mock window.ResizeObserver
 window.ResizeObserver = ResizeObserver;
 
+export const renderHeaderComponent = () => {
+  render(<Header />);
+};
+
+export const renderImgLogo = () => {
+  const imgLogo = screen.getByAltText("DT Money");
+
+  expect(imgLogo).toBeInTheDocument();
+  expect(imgLogo).toHaveAttribute("src", "mocked-image-path");
+};
+
 describe("Header", () => {
   it("should render image logo with correct alt text", () => {
-    render(<Header />);
+    renderHeaderComponent();
 
-    const imgLogo = screen.getByAltText("DT Money");
-
-    expect(imgLogo).toBeInTheDocument();
-    expect(imgLogo).toHaveAttribute("src", "mocked-image-path");
+    renderImgLogo();
   });
 
   it("should render button of new transaction", () => {
-    render(<Header />);
+    renderHeaderComponent();
 
     const newTransactionButton = screen.getByText("Nova transação");
 
@@ -34,7 +42,7 @@ describe("Header", () => {
   });
 
   it("should open new transaction dialog when the button is clicked", () => {
-    render(<Header />);
+    renderHeaderComponent();
 
     // Check if dialog is initially not rendered
     expect(screen.queryByText("Nova Transação")).toBeNull();
