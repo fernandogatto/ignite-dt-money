@@ -9,7 +9,7 @@ import { renderImgLogo } from "../../components/tests/Header.spec";
 // Mock the image file import
 jest.mock("../../assets/logo.svg", () => "mocked-image-path");
 
-const description = faker.internet.userName();
+const description = faker.commerce.productName();
 
 // Mock the transaction context value
 jest.mock("../../contexts/TransactionContext", () => ({
@@ -21,7 +21,7 @@ jest.mock("../../contexts/TransactionContext", () => ({
         id: faker.string.uuid(),
         description: description,
         type: "income",
-        category: faker.internet.userName(),
+        category: faker.commerce.productMaterial(),
         price: faker.number.int(),
         createdAt: faker.date.past(),
       },

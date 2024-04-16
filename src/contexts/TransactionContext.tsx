@@ -33,7 +33,7 @@ interface IUpdateTransactionData {
   createdAt: Date;
 }
 
-interface ITransactionContextType {
+export interface ITransactionContextType {
   isLoading: boolean;
   hasError: boolean;
   transactions: ITransaction[];
