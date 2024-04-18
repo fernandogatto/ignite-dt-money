@@ -26,6 +26,12 @@ const mockDescription = faker.commerce.productName();
 const mockPrice = faker.number.int();
 const mockCategory = faker.commerce.productMaterial();
 const mockType = "outcome";
+const mockResponse = {
+  description: mockDescription,
+  price: mockPrice,
+  category: mockCategory,
+  type: mockType,
+};
 
 const createTransaction = jest.fn();
 const closeNewTransactionModal = jest.fn();
@@ -59,7 +65,7 @@ describe("NewTransactionModal", () => {
 
     fireEvent.click(newTransactionButton);
 
-    /// Check if dialog is rendered after button click
+    // Check if dialog is rendered after button click
     expect(screen.getByText("Nova Transação")).toBeInTheDocument();
   });
 
@@ -103,12 +109,7 @@ describe("NewTransactionModal", () => {
 
     await waitFor(() => {
       expect(createTransaction).toHaveBeenCalledTimes(1);
-      expect(createTransaction).toHaveBeenCalledWith({
-        description: mockDescription,
-        price: mockPrice,
-        category: mockCategory,
-        type: mockType,
-      });
+      expect(createTransaction).toHaveBeenCalledWith(mockResponse);
     });
   });
 });
