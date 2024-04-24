@@ -2,12 +2,21 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { faker } from "@faker-js/faker";
 
-import { Transactions } from "../Transactions";
 import { TransactionsProvider } from "../../contexts/TransactionContext";
-import { renderImgLogo } from "../../components/tests/Header.spec";
+import { TransactionsTable } from "../TransactionsTable";
 
 // Mock the image file import
 jest.mock("../../assets/logo.svg", () => "mocked-image-path");
+
+// Mock ResizeObserver
+class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+// Mock window.ResizeObserver
+window.ResizeObserver = ResizeObserver;
 
 const description = faker.commerce.productName();
 
@@ -32,7 +41,7 @@ jest.mock("../../contexts/TransactionContext", () => ({
 const renderComponent = () => {
   render(
     <TransactionsProvider>
-      <Transactions />
+      <TransactionsTable />
     </TransactionsProvider>
   );
 };
@@ -40,8 +49,6 @@ const renderComponent = () => {
 describe("Transactions", () => {
   it("should render all transactions", () => {
     renderComponent();
-
-    renderImgLogo();
 
     expect(screen.getByText(description)).toBeInTheDocument();
   });
@@ -81,9 +88,10 @@ describe("Transactions", () => {
 
     const removeTransactionButton = screen.getByTestId("remove");
 
+    // Simulate click
     fireEvent.click(removeTransactionButton);
 
-    /// Check if dialog is rendered after button click
+    // Check if dialog is rendered after button click
     expect(screen.getByText("Excluir Transação")).toBeInTheDocument();
   });
 });

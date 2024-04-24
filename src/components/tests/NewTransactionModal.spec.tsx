@@ -8,7 +8,7 @@ import {
 import "@testing-library/jest-dom";
 import { faker } from "@faker-js/faker";
 
-import { renderHeaderComponent, renderImgLogo } from "./Header.spec";
+import { renderHeaderComponent } from "./Header.spec";
 import {
   ITransactionContextType,
   TransactionsContext,
@@ -55,8 +55,6 @@ const renderTransactionComponent = () => {
 describe("NewTransactionModal", () => {
   it("should render correctly component", () => {
     renderHeaderComponent();
-
-    renderImgLogo();
 
     // Check if dialog is initially not rendered
     expect(screen.queryByText("Nova Transação")).not.toBeInTheDocument();

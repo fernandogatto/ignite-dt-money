@@ -19,7 +19,7 @@ export const renderHeaderComponent = () => {
   render(<Header />);
 };
 
-export const renderImgLogo = () => {
+const renderImgLogo = () => {
   const imgLogo = screen.getByAltText("DT Money");
 
   expect(imgLogo).toBeInTheDocument();
