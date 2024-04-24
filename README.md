@@ -66,6 +66,11 @@ npm install
 Run the following command in order in terminal:
 
 ```bash
+# Run the fake api
+npx json-server server.json
+```
+
+```bash
 # Start the server
 npm run dev
 ```
