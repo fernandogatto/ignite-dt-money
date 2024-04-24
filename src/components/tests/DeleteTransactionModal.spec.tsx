@@ -58,7 +58,7 @@ describe("DeleteTransactionModal", () => {
       expect(screen.queryByText("Loading...")).not.toBeInTheDocument();
     });
 
-    // Check if update button is rendered after loading
+    // Check if remove button is rendered after loading
     const removeTransactionButton = screen.getAllByTestId("remove")[0];
     expect(removeTransactionButton).toBeInTheDocument();
   });
@@ -74,7 +74,7 @@ describe("DeleteTransactionModal", () => {
     // Check if dialog is initially not rendered
     expect(screen.queryByText("Excluir Transação")).not.toBeInTheDocument();
 
-    // Check if update button is rendered after loading
+    // Check if remove button is rendered after loading
     const removeTransactionButton = screen.getAllByTestId("remove")[0];
     expect(removeTransactionButton).toBeInTheDocument();
 
@@ -98,7 +98,7 @@ describe("DeleteTransactionModal", () => {
     // Check if dialog is initially not rendered
     expect(screen.queryByText("Excluir Transação")).not.toBeInTheDocument();
 
-    // Check if update button is rendered after loading
+    // Check if remove button is rendered after loading
     const removeTransactionButton = screen.getAllByTestId("remove")[0];
     expect(removeTransactionButton).toBeInTheDocument();
 
