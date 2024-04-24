@@ -19,17 +19,15 @@ interface IUpdateTransactionData {
 
 class TransactionsService {
   getTransactions(search?: string) {
-    return api.get('transactions', {
+    return api.get("transactions", {
       params: {
-        // _sort: 'createdAt',
-        // _order: 'desc',
         description: search,
-      }
+      },
     });
   }
 
   createNewTransacion(data: ICreateTransactionData) {
-    return api.post('transactions', data);
+    return api.post("transactions", data);
   }
 
   updateTransaction(data: IUpdateTransactionData) {
