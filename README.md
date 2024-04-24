@@ -20,6 +20,7 @@
 > Web application for money control.
 
 ## 🔗 Table of contents
+
 - [Technologies](#technologies)
 - [Installation](#installation)
 - [Getting start](#start)
@@ -29,10 +30,13 @@
 ## 📌 Technologies <a name="technologies"/>
 
 - [ESLint](https://eslint.org/)
+- [Jest](https://jestjs.io/)
 - [ReactJS](https://pt-br.reactjs.org/)
 - [React Hook Form](https://www.react-hook-form.com/)
 - [Radix UI](https://www.radix-ui.com/)
 - [Styled Components](https://styled-components.com/)
+- [Prettier](https://prettier.io/)
+- [Testing Library](https://testing-library.com/)
 - [Vite](https://vitejs.dev/)
 
 ## 📂 Installation <a name="installation"/>
@@ -66,6 +70,11 @@ Run the following command in order in terminal:
 npm run dev
 ```
 
+```bash
+# Run the tests
+npm run test
+```
+
 ## 💻 Project <a name="project"/>
 
 Dashboard:
@@ -80,8 +89,8 @@ Dashboard:
 ## 👍 Contribute <a name="contribute"/>
 
 - Fork this repository.
-- Create a branch with your resource: ```git checkout -b feature/my-feature```
-- Submit changes: ```git commit -m "feat: My new feature"```
-- Push your branch: ```git push origin feature/my-feature```
+- Create a branch with your resource: `git checkout -b feature/my-feature`
+- Submit changes: `git commit -m "feat: My new feature"`
+- Push your branch: `git push origin feature/my-feature`
 
 Build with 💙 by [Fernando Gatto](https://github.com/fernandogatto/).
