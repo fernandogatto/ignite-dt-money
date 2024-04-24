@@ -2,7 +2,10 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { faker } from "@faker-js/faker";
 
-import { TransactionsProvider } from "../../contexts/TransactionContext";
+import {
+  ITransactionContextType,
+  TransactionsContext,
+} from "../../contexts/TransactionContext";
 import { TransactionsTable } from "../TransactionsTable";
 
 // Mock the image file import
@@ -18,31 +21,33 @@ class ResizeObserver {
 // Mock window.ResizeObserver
 window.ResizeObserver = ResizeObserver;
 
-const description = faker.commerce.productName();
-
-// Mock the transaction context value
-jest.mock("../../contexts/TransactionContext", () => ({
-  ...jest.requireActual("../../contexts/TransactionContext"),
-  useTransaction: jest.fn(() => ({
-    setMyCurrentTransaction: jest.fn(),
-    transactions: [
-      {
-        id: faker.string.uuid(),
-        description: description,
-        type: "income",
-        category: faker.commerce.productMaterial(),
-        price: faker.number.int(),
-        createdAt: faker.date.past(),
-      },
-    ],
-  })),
-}));
+// Mock the context
+const mockDescription = faker.commerce.productName();
+const mockTransactions = [
+  {
+    id: faker.string.uuid(),
+    description: mockDescription,
+    type: "income",
+    category: faker.commerce.productMaterial(),
+    price: faker.number.int(),
+    createdAt: faker.date.past(),
+  },
+];
+const mockSetMyCurrentTransaction = jest.fn();
 
 const renderComponent = () => {
-  render(
-    <TransactionsProvider>
+  return render(
+    <TransactionsContext.Provider
+      value={
+        {
+          transactions: mockTransactions,
+          currentTransaction: mockTransactions[0],
+          setMyCurrentTransaction: mockSetMyCurrentTransaction,
+        } as unknown as ITransactionContextType
+      }
+    >
       <TransactionsTable />
-    </TransactionsProvider>
+    </TransactionsContext.Provider>
   );
 };
 
@@ -50,7 +55,7 @@ describe("Transactions", () => {
   it("should render all transactions", () => {
     renderComponent();
 
-    expect(screen.getByText(description)).toBeInTheDocument();
+    expect(screen.getByText(mockDescription)).toBeInTheDocument();
   });
 
   it("should render update transaction button", () => {
@@ -71,13 +76,13 @@ describe("Transactions", () => {
     // Check if dialog is initially not rendered
     expect(screen.queryByText("Atualizar Transação")).not.toBeInTheDocument();
 
-    const updateTransactionButton = screen.getByTestId("update");
+    const updateTransactionButton = screen.getAllByTestId("update")[0];
 
     fireEvent.click(updateTransactionButton);
 
     /// Check if dialog is rendered after button click
     expect(screen.getByText("Atualizar Transação")).toBeInTheDocument();
-    expect(screen.getByText(description)).toBeInTheDocument();
+    expect(screen.getByText(mockDescription)).toBeInTheDocument();
   });
 
   it("should open remove transaction dialog when the button is clicked", () => {
@@ -86,7 +91,7 @@ describe("Transactions", () => {
     // Check if dialog is initially not rendered
     expect(screen.queryByText("Excluir Transação")).not.toBeInTheDocument();
 
-    const removeTransactionButton = screen.getByTestId("remove");
+    const removeTransactionButton = screen.getAllByTestId("remove")[0];
 
     // Simulate click
     fireEvent.click(removeTransactionButton);
